@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="Dwl_MineHeader">
+            <rect key="frame" x="0.0" y="0.0" width="295" height="226"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5nn-Gu-bQj">
+                    <rect key="frame" x="0.0" y="0.0" width="295" height="120"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="120" id="Klj-eO-WSi"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0bP-w2-JSr">
+                    <rect key="frame" x="20" y="170" width="255" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2Y-9E-Onq">
+                    <rect key="frame" x="107.5" y="80" width="80" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="1j0-p5-KYK"/>
+                        <constraint firstAttribute="width" secondItem="F2Y-9E-Onq" secondAttribute="height" multiplier="1:1" id="ing-j5-bae"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="userIconClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="8kb-n4-HDz"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="5nn-Gu-bQj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="682-ym-03a"/>
+                <constraint firstAttribute="trailing" secondItem="5nn-Gu-bQj" secondAttribute="trailing" id="96U-zr-WHE"/>
+                <constraint firstAttribute="trailing" secondItem="0bP-w2-JSr" secondAttribute="trailing" constant="20" id="9nQ-ry-9Gu"/>
+                <constraint firstItem="0bP-w2-JSr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="Cfo-a9-dyf"/>
+                <constraint firstItem="5nn-Gu-bQj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Qs3-pq-bxg"/>
+                <constraint firstItem="0bP-w2-JSr" firstAttribute="top" secondItem="F2Y-9E-Onq" secondAttribute="bottom" constant="10" id="pAp-AI-m6q"/>
+                <constraint firstItem="F2Y-9E-Onq" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="tNE-uq-ixi"/>
+                <constraint firstItem="F2Y-9E-Onq" firstAttribute="top" secondItem="5nn-Gu-bQj" secondAttribute="bottom" constant="-40" id="uDf-p8-tda"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="userIconBtn" destination="F2Y-9E-Onq" id="BC0-f8-Gpx"/>
+                <outlet property="userNameLab" destination="0bP-w2-JSr" id="guM-Bd-RXQ"/>
+            </connections>
+            <point key="canvasLocation" x="-307.5" y="180"/>
+        </view>
+    </objects>
+</document>

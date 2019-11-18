@@ -7,7 +7,25 @@
 		<key>YinMeng.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>5</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>4D9AA55620CA5A3C00FDCA8B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4D9AA56E20CA5A3D00FDCA8B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4D9AA57920CA5A3D00FDCA8B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
