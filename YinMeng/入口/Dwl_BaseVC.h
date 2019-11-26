@@ -27,8 +27,11 @@ DLoadType;
 -(void)addLoadingWithFrame:(CGRect)frame;//1
 @property (nonatomic,strong) Dwl_BaseLoading *loading;//2
 
-
 //服务器无相应数据，展示提示信息。做成方法更方便frame的适配
 -(void)addNoDataWithFrame:(CGRect)frame;
+
+
+//是否禁用侧滑返回手势
+- (void)gesturePopEnable:(BOOL)enable;
 
 @end

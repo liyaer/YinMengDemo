@@ -34,4 +34,21 @@
     [self.view addSubview:[Dwl_BaseNoData showWithFrame:frame]];
 }
 
+#pragma mark - 是否禁用侧滑返回手势
+
+- (void)gesturePopEnable:(BOOL)enable {
+#if BackGestureType == 1
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = enable;
+    }
+#elif BackGestureType == 2
+    if ([self.navigationController isKindOfClass:[Dwl_BaseNav class]]) {
+        Dwl_BaseNav *nav = (Dwl_BaseNav *)self.navigationController;
+        if([nav respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+            nav.customPanGesture.enabled = enable;
+        }
+    }
+#endif
+}
+
 @end

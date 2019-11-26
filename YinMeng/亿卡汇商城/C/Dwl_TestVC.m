@@ -9,9 +9,11 @@
 #import "Dwl_TestVC.h"
 #import "UIAlertController+Settings.h"
 
+
 @interface Dwl_TestVC ()
 
 @end
+
 
 @implementation Dwl_TestVC
 
@@ -24,21 +26,6 @@
 }
 
 #pragma mark - 该页面禁用侧滑返回手势
-
-- (void)gesturePopEnable:(BOOL)enable {
-#if BackGestureType == 1
-    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.enabled = enable;
-    }
-#elif BackGestureType == 2
-    if ([self.navigationController isKindOfClass:[Dwl_BaseNav class]]) {
-        Dwl_BaseNav *nav = (Dwl_BaseNav *)self.navigationController;
-        if([nav respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-            nav.customPanGesture.enabled = enable;
-        }
-    }
-#endif
-}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -54,8 +41,10 @@
 
 #pragma mark - 拦截返回按钮点击事件
 
+//若有侧滑返回，请注意：
+//测试发现popToRootViewControllerAnimated和popToViewController(若返回rootVC)，在viewWillDisappear发现存在self，但是不存在self.navVC，因此在这里设置nav是无效的；逐级返回（哪怕上级就是rootVC）或者跳级返回（只要不是返回rootVC），不会出现上述问题（也就是说存在self.navVC）。
+//因此，禁用该页面的侧滑（即在viewWillDisappear中的设置）受上述影响，某些情况下会失效。目前的解决办法是，在受影响的操作前手动调用 gesturePopEnable
 - (void)alertShow {
-#error 测试发现popToRootViewControllerAnimated和popToViewController(若返回rootVC)，在viewWillDisappear发现存在self，但是不存在self.navVC，因此在这里设置nav是无效的；逐级返回（哪怕上级就是rootVC）或者跳级返回（只要不是返回rootVC），不会出现上述问题（也就是说存在self.navVC）。准备处理方法吧
     void(^actionHandler_1)(void) = ^() {
         NSArray *VCs = self.navigationController.viewControllers;
         NSInteger currentIndex = [VCs indexOfObject:self.navigationController.topViewController];
@@ -64,6 +53,8 @@
         }
     };
     void(^actionHandler_2)(void) = ^() {
+        [self gesturePopEnable:YES];
+        
         [self.navigationController popToRootViewControllerAnimated:YES];
     };
 

@@ -21,22 +21,29 @@
     
     self.navigationBar.translucent = YES;
     self.navigationBar.barTintColor = ThemeColor(1.0);
-    //设置字体
+    //设置title字体
     [self.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:20], NSForegroundColorAttributeName:[UIColor brownColor]}];
 
     //侧滑返回
 #if BackGestureType == 1
+    
     [self systemGestureWithNavgationTransition];
+    
 #elif BackGestureType == 2
+    
     [self customGestureWithSystemNavgationTransition];
+    
 #else
+    
     [self customGestureWithNavgationTransition];
+    
 #endif
 }
 
 #pragma mark - 侧滑返回
 
 #if BackGestureType == 1
+
 //方式一：系统自带的侧滑返回手势 + 系统动画效果（只能在左侧边缘触发）
 - (void)systemGestureWithNavgationTransition {
 //系统默认只有设置backBarButtonItem才有侧滑返回；一旦设置了leftBarButtonItem，侧滑返回就失效了，需要额外明确进行此设置
@@ -44,7 +51,9 @@
     self.interactivePopGestureRecognizer.delegate = (id)self;
 #endif
 }
+
 #elif BackGestureType == 2
+
 //方式二：自定义侧滑返回手势代替系统的侧滑返回手势 + 系统动画效果（可以随意控制触发的范围）
 - (void)customGestureWithSystemNavgationTransition {
     [self.view addGestureRecognizer:self.customPanGesture];
@@ -63,28 +72,44 @@
     }
     return NO;
 }
+
 #elif BackGestureType == 3
+
 //方式三：自定义侧滑返回手势 + 自定义转场动画（可以随意控制触发的范围、动画效果）
 - (void)customGestureWithNavgationTransition {
     
 }
+
 #endif
 
 #pragma mark - 统一设置返回按钮
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     NSInteger count = self.childViewControllers.count;
+    
 #if BackActionInterceptType == 1
+    
     if (count > 0) {
         viewController.hidesBottomBarWhenPushed = YES;
     }
     
-    //设置backBarButtonItem的话，只能通过initWithTitle；initWithImage会看到<和设置的image同时存在；initWithCustom无效果
-    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
-    back.tintColor = [UIColor whiteColor];
+    //设置backBarButtonItem的话，无法像设置leftBarButtonItem那样直接“单独”通过initWithImage（会看到 < 和设置的image同时存在）、initWithCustom（无效果）达到自定义的样式效果
+    //1，修改文字内容和样式
+    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"测试" style:UIBarButtonItemStylePlain target:self action:nil];
     //作为backBarButtonItem，点击时会触发shouldPopItem方法（系统内部自动实现了pop操作）
     viewController.navigationItem.backBarButtonItem = back;
+    UIBarButtonItem *barButtonItemAppearance = [UIBarButtonItem appearance];// = viewController.navigationItem.backBarButtonItem
+    [barButtonItemAppearance setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]} forState:UIControlStateNormal];
+    
+    //2，修改navigationBar上的返回按钮的图片
+    UINavigationBar *navigationBarAppearance = [UINavigationBar appearance];// = self.navigationBar
+    UIImage *image = [[UIImage imageNamed:@"nav_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    //注意：这两个属性要同时设置
+    navigationBarAppearance.backIndicatorImage = image;
+    navigationBarAppearance.backIndicatorTransitionMaskImage = image;
+    
 #elif BackActionInterceptType == 2
+    
     if (count > 0) {
         viewController.hidesBottomBarWhenPushed = YES;
         
@@ -102,7 +127,9 @@
         //作为leftBarButtonItem，点击时不会触发shouldPopItem方法（该方法只有pop操作才会调用）
         viewController.navigationItem.leftBarButtonItem = leftItem;
     }
+    
 #endif
+    
     [super pushViewController:viewController animated:animated];
 }
 
@@ -125,7 +152,3 @@
 #endif
 
 @end
-
-
-2，backBar自定义
-分类git更新
