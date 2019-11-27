@@ -35,7 +35,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+
     [self gesturePopEnable:YES];
 }
 
@@ -65,7 +65,7 @@
 #if BackActionInterceptType == 1
 - (BOOL)backBarButtonItemHandler {
     [self alertShow];
-    
+
     return NO;
 }
 #elif BackActionInterceptType == 2
@@ -73,5 +73,22 @@
     [self alertShow];
 }
 #endif
+
+#pragma mark - 虽然下面两个系统方法可以监听到“侧滑返回”事件的发生（不考虑BackGestureType = 3的情况下），但是不能像上面“点击拦截”一样阻止系统执行pop操作，因此遇见需要拦截返回事件的情况，还是采用 禁用侧滑 + 点击拦截 的方式
+
+- (void)willMoveToParentViewController:(UIViewController*)parent {
+    [super willMoveToParentViewController:parent];
+    
+    NSLog(@"%s,%@",__FUNCTION__,parent);
+}
+
+- (void)didMoveToParentViewController:(UIViewController*)parent {
+    [super didMoveToParentViewController:parent];
+    
+    NSLog(@"%s,%@",__FUNCTION__,parent);
+    
+    if(!parent){   NSLog(@"离开页面");   }
+}
+
 
 @end
