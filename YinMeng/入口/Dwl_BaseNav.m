@@ -63,14 +63,24 @@
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if (self.childViewControllers.count > 1) { //如果是根视图控制器则不需要
         CGPoint touchPoint = [gestureRecognizer locationInView:self.view];
-        if (touchPoint.x < DScreenWidth / 3) { //控制触发范围
-            CGPoint speed = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.view];
-            if (speed.x > 0 && speed.x > speed.y) {
+        if (touchPoint.x <= DScreenWidth / 4) { //控制触发范围
+            CGPoint offSet = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:self.view];
+            if (offSet.x > 0) {
                 return YES;
             }
+            //或者
+//            CGPoint speed = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self.view];
+//            if (speed.x > 0 && speed.x > speed.y) {
+//                return YES;
+//            }
         }
     }
     return NO;
+}
+
+//当VC中有scrollView时，优先响应侧滑手势
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
 }
 
 #elif BackGestureType == 3
